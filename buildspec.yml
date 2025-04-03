@@ -1,10 +1,18 @@
 version: 0.2
 
-phases: 
+phases:
   pre_build:
-    commands: 
+    commands:
+      - echo "Instalando dependencias..."
       - pip install -r requirements.txt
-      - echo "Pre-build phase completed"
+      - echo "Pre-build completado."
+
+  build:
+    commands:
+      - echo "Ejecutando pruebas unitarias..."
+      - python -m unittest test_application.py
+      - echo "Pruebas completadas."
+
 artifacts:
   files:
     - '**/*'
