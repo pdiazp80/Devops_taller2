@@ -10,9 +10,18 @@ phases:
   build:
     commands:
       - echo "Ejecutando pruebas unitarias..."
-      - python -m unittest test_application.py
+      - python -m unittest discover -s tests
       - echo "Pruebas completadas."
+
+  post_build:
+    commands:
+      - echo "Empaquetando el código fuente..."
+      - zip -r artifact.zip .  # Comprime todo el repositorio
+      - echo "Subiendo artefacto a S3..."
+      - aws s3 cp artifact.zip s3://mi-bucket-build-artifacts/$(date +%Y%m%d%H%M%S)-artifact.zip
+      - echo "Publicación del artefacto en S3 completada."
 
 artifacts:
   files:
-    - '**/*'
+    - artifact.zip
+  discard-paths: yes
