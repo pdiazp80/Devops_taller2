@@ -10,7 +10,7 @@ phases:
   build:
     commands:
       - echo "Ejecutando pruebas unitarias..."
-      - python -m unittest discover -s tests
+      - python -m unittest test_application.py
       - echo "Pruebas completadas."
 
   post_build:
